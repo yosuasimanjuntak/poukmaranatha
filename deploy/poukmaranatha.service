@@ -1,0 +1,31 @@
+[Unit]
+Description=Poukmaranatha (church ministry scheduling) Gunicorn
+After=network.target postgresql.service
+Wants=postgresql.service
+
+[Service]
+Type=notify
+User=poukmaranatha
+Group=poukmaranatha
+WorkingDirectory=/srv/poukmaranatha
+EnvironmentFile=/etc/poukmaranatha.env
+ExecStart=/srv/poukmaranatha/.venv/bin/gunicorn \
+    --config /srv/poukmaranatha/deploy/gunicorn.conf.py \
+    config.wsgi:application
+ExecReload=/bin/kill -s HUP $MAINPID
+KillMode=mixed
+TimeoutStopSec=10
+PrivateTmp=true
+Restart=on-failure
+RestartSec=3
+
+# Hardening
+NoNewPrivileges=true
+ProtectSystem=strict
+ReadWritePaths=/srv/poukmaranatha
+# Note: ProtectHome is intentionally NOT set — gunicorn 26's control socket
+# lives at $HOME/.gunicorn/gunicorn.ctl. PrivateTmp + ProtectSystem still cover
+# the bulk of the threat surface.
+
+[Install]
+WantedBy=multi-user.target

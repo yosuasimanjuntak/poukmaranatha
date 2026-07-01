@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Delete user" %} · poukmaranatha{% endblock %}
+{% block top_title %}{% trans "Delete User" %}{% endblock %}
+
+{% block content %}
+<section class="card card-roomy stack-loose">
+    <h1 class="text-lg font-semibold text-primary-dark">{% trans "Delete this user?" %}</h1>
+    <p class="prose-narrow text-sm text-ink-muted">
+        {% blocktrans with name=user_obj.display_name %}This will permanently delete <strong>{{ name }}</strong>. This action cannot be undone.{% endblocktrans %}
+    </p>
+    <form method="post" class="flex gap-2">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">
+            {% include "components/spinner.html" %}
+            <span>{% trans "Yes, Delete" %}</span>
+        </button>
+        <a href="{% url 'accounts:user_list' %}" class="btn btn-secondary">
+            {% trans "Cancel" %}
+        </a>
+    </form>
+</section>
+{% endblock %}

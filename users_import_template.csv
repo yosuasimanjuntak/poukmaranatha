@@ -1,0 +1,6 @@
+full_name,username,password,account_role,language,user_roles
+Yosua Fernandus,yosua,admin123,superuser,id,Worship Leader|Singer
+Contoh Admin,admin_contoh,ganti123,admin,id,Keyboard
+Anggota Satu,,ganti123,viewer,id,Drum
+Anggota Dua,,ganti123,viewer,id,Bass|Singer
+Anggota Tiga,,ganti123,viewer,en,Worship Leader

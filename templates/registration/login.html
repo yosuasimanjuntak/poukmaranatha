@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Log in" %} · poukmaranatha{% endblock %}
+{% block top_title %}{% trans "Log In" %}{% endblock %}
+
+{% block content %}
+<div class="mx-auto max-w-sm">
+    <h1 class="text-2xl font-semibold tracking-tight text-primary-dark">{% trans "Log in" %}</h1>
+    <p class="mt-1 text-sm text-ink-muted">{% trans "Sign in with your church account." %}</p>
+
+    {% if form.errors %}
+        <div class="mt-4 rounded-md border border-danger/30 bg-danger-50 px-3 py-2 text-sm text-danger">
+            {% trans "Invalid username or password." %}
+        </div>
+    {% endif %}
+
+    <form method="post" action="{% url 'login' %}" class="card card-roomy mt-6 stack-loose">
+        {% csrf_token %}
+        <label class="block">
+            <span class="text-sm font-medium text-ink">{% trans "Username" %} <span aria-hidden="true" class="text-accent">*</span></span>
+            <input type="text" name="username" id="id_username" required autofocus class="input mt-1">
+        </label>
+        <label class="block">
+            <span class="text-sm font-medium text-ink">{% trans "Password" %} <span aria-hidden="true" class="text-accent">*</span></span>
+            <input type="password" name="password" id="id_password" required class="input mt-1">
+        </label>
+        <input type="hidden" name="next" value="{{ next }}">
+        <button type="submit" class="btn btn-primary btn-block">
+            {% include "components/spinner.html" %}
+            <span>{% trans "Log In" %}</span>
+        </button>
+    </form>
+</div>
+{% endblock %}

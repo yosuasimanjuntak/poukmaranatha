@@ -1,0 +1,62 @@
+{% load static tailwind_tags i18n %}
+<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE|default:'id' }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="theme-color" content="#3A1A7E">
+    <title>{% block title %}poukmaranatha{% endblock %}</title>
+    <link rel="preload" href="{% static 'vendor/InterVariable.woff2' %}" as="font" type="font/woff2" crossorigin>
+    {% tailwind_css %}
+    <script src="{% static 'vendor/htmx.min.js' %}" defer></script>
+    <script src="{% static 'vendor/alpine.min.js' %}" defer></script>
+    <style>[x-cloak]{display:none!important}</style>
+</head>
+<body class="min-h-screen bg-surface text-ink antialiased">
+    {% include "components/top_bar.html" %}
+
+    <main class="page-enter mx-auto max-w-5xl px-4 pt-4 pb-24 lg:pb-12">
+        {% block content %}{% endblock %}
+    </main>
+
+    {% include "components/bottom_tabs.html" %}
+
+    {# Body-level portal for modals — keeps fixed positioning unconstrained by <main>. #}
+    <div id="modal-root"></div>
+
+    {% include "components/toast.html" %}
+
+    <script>
+      (function () {
+        // Toggle aria-busy on HTMX-triggering buttons during request
+        document.body.addEventListener('htmx:beforeRequest', function (e) {
+          var el = e.detail && e.detail.elt;
+          if (el && el.tagName === 'BUTTON') el.setAttribute('aria-busy', 'true');
+        });
+        document.body.addEventListener('htmx:afterRequest', function (e) {
+          var el = e.detail && e.detail.elt;
+          if (el && el.tagName === 'BUTTON') el.removeAttribute('aria-busy');
+        });
+
+        // Inject stagger index on swapped children of [data-stagger]
+        document.body.addEventListener('htmx:afterSwap', function (e) {
+          var target = e.detail && e.detail.target;
+          if (!target) return;
+          var groups = target.matches && target.matches('[data-stagger]') ? [target] : target.querySelectorAll('[data-stagger]');
+          (target.matches && target.matches('[data-stagger]') ? [target] : Array.from(groups)).forEach(function (g) {
+            Array.from(g.children).forEach(function (child, i) {
+              if (i < 8) child.style.setProperty('--i', i);
+            });
+          });
+        });
+
+        // Optional: server can return HX-Trigger: {"toast": {"type":"success","message":"..."}}
+        document.body.addEventListener('toast', function (e) {
+          if (e.detail) window.toast(e.detail);
+        });
+      })();
+    </script>
+
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

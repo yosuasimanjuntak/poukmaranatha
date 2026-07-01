@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Ministry Roles" %} · poukmaranatha{% endblock %}
+{% block top_title %}{% trans "Ministry Roles" %}{% endblock %}
+
+{% block content %}
+<section class="space-y-3">
+    <div class="flex items-end justify-between gap-3">
+        <p class="prose-narrow text-sm text-ink-muted">{% trans "The roles people fill in a service: Worship Leader, Drum, Singer, Bass, Tech, and so on." %}</p>
+        <a href="{% url 'ministry:userrole_create' %}" class="btn btn-primary btn-sm shrink-0">
+            + {% trans "Add Role" %}
+        </a>
+    </div>
+    <ul class="stagger-children stack-tight">
+        {% for r in roles %}
+            <li class="card card-tight flex items-center justify-between" style="--i:{% if forloop.counter0 < 8 %}{{ forloop.counter0 }}{% else %}0{% endif %}">
+                <div>
+                    <p class="font-medium text-ink">{{ r.name }}{% if r.name_en %} <span class="text-xs text-ink-muted">/ {{ r.name_en }}</span>{% endif %}</p>
+                    <p class="text-xs text-ink-muted">{{ r.users.count }} {% trans "user" %}{{ r.users.count|pluralize }} · {% if r.is_active %}{% trans "active" %}{% else %}{% trans "inactive" %}{% endif %}</p>
+                </div>
+                <a href="{% url 'ministry:userrole_edit' r.pk %}" class="btn btn-ghost btn-sm tap44">{% trans "Edit" %}</a>
+            </li>
+        {% empty %}
+            <li class="empty-state">
+                <p class="empty-state-title">{% trans "No ministry roles yet." %}</p>
+                <p>{% trans "Define the roles your team fills. Admins use these to build the lineup of each service." %}</p>
+                <div class="empty-state-actions">
+                    <a href="{% url 'ministry:userrole_create' %}" class="btn btn-primary btn-sm">+ {% trans "Add Role" %}</a>
+                </div>
+            </li>
+        {% endfor %}
+    </ul>
+</section>
+{% endblock %}

@@ -1,0 +1,41 @@
+{% load i18n %}
+{% if matrix.dates and matrix.rows %}
+<div class="matrix-scroll" role="region" aria-label="{% trans 'Roster matrix' %}" tabindex="0">
+    <table class="matrix">
+        <thead>
+            <tr>
+                <th scope="col" class="matrix-corner">{% trans "Task / Date" %}</th>
+                {% for d in matrix.dates %}
+                    <th scope="col" class="matrix-date">
+                        <a href="{% url 'ministry:schedule_detail' d.schedule.pk %}" class="matrix-date-link">
+                            <span class="matrix-weekday">{{ d.weekday_label }}</span>
+                            <span class="matrix-daynum" data-num>{{ d.day_label }}</span>
+                            <span class="matrix-month">{{ d.month_label }}</span>
+                        </a>
+                    </th>
+                {% endfor %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in matrix.rows %}
+                <tr>
+                    <th scope="row" class="matrix-role">{{ row.role.name }}</th>
+                    {% for cell in row.cells %}
+                        <td class="matrix-cell{% if not cell %} is-empty{% endif %}">
+                            {% if cell %}
+                                <ul class="matrix-names">
+                                    {% for name in cell %}<li>{{ name }}</li>{% endfor %}
+                                </ul>
+                            {% else %}
+                                <span class="matrix-empty" aria-label="{% trans 'Empty' %}">·</span>
+                            {% endif %}
+                        </td>
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% else %}
+    {% include "ministry/_empty_state.html" %}
+{% endif %}

@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Profile" %} · poukmaranatha{% endblock %}
+{% block top_title %}{% trans "Profile" %}{% endblock %}
+
+{% block content %}
+<section class="space-y-4">
+    <div class="card card-roomy">
+        <div class="flex items-center gap-4">
+            {% if user.photo %}
+                <img src="{{ user.photo.url }}" alt="" class="h-16 w-16 rounded-full object-cover">
+            {% else %}
+                <span class="flex h-16 w-16 items-center justify-center rounded-full bg-accent text-2xl font-bold uppercase text-white">{{ user.display_name|slice:":1" }}</span>
+            {% endif %}
+            <div>
+                <h1 class="text-xl font-semibold tracking-tight text-primary-dark">{{ user.display_name }}</h1>
+                <p class="text-sm text-ink-muted">@{{ user.username }} · {{ user.get_account_role_display }}</p>
+            </div>
+        </div>
+
+        {% if user.user_roles.exists %}
+            <div class="mt-3 flex flex-wrap gap-1.5">
+                {% for r in user.user_roles.all %}
+                    <span class="badge">{{ r.name }}</span>
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+
+    <form method="post" enctype="multipart/form-data" class="card card-roomy stack-loose">
+        {% csrf_token %}
+        <h2 class="text-2xs font-semibold uppercase tracking-wider text-primary-dark">{% trans "Edit Profile" %}</h2>
+        {% for field in form %}
+            <label class="block">
+                <span class="text-sm font-medium text-ink">{{ field.label }}{% if field.field.required %} <span aria-hidden="true" class="text-accent">*</span>{% endif %}</span>
+                <div class="mt-1">{{ field }}</div>
+                {% if field.errors %}
+                    <p class="mt-1 text-xs text-danger">{{ field.errors|join:", " }}</p>
+                {% endif %}
+            </label>
+        {% endfor %}
+        <button type="submit" class="btn btn-primary">
+            {% include "components/spinner.html" %}
+            <span>{% trans "Save Profile" %}</span>
+        </button>
+    </form>
+
+    <form method="post" action="{% url 'accounts:profile_password' %}" class="card card-roomy stack-loose">
+        {% csrf_token %}
+        <h2 class="text-2xs font-semibold uppercase tracking-wider text-primary-dark">{% trans "Change Password" %}</h2>
+        {% for field in pw_form %}
+            <label class="block">
+                <span class="text-sm font-medium text-ink">{{ field.label }}{% if field.field.required %} <span aria-hidden="true" class="text-accent">*</span>{% endif %}</span>
+                <div class="mt-1">{{ field }}</div>
+                {% if field.errors %}
+                    <p class="mt-1 text-xs text-danger">{{ field.errors|join:", " }}</p>
+                {% endif %}
+            </label>
+        {% endfor %}
+        <button type="submit" class="btn btn-primary">
+            {% include "components/spinner.html" %}
+            <span>{% trans "Update Password" %}</span>
+        </button>
+    </form>
+
+    <form method="post" action="{% url 'logout' %}">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger-soft">
+            {% trans "Log Out" %}
+        </button>
+    </form>
+</section>
+{% endblock %}

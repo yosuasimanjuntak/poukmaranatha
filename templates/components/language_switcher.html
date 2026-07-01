@@ -1,0 +1,16 @@
+{% load i18n %}
+{% get_current_language as LANGUAGE_CODE %}
+{% get_available_languages as LANGUAGES %}
+<form action="{% url 'set_language' %}" method="post" class="inline">
+    {% csrf_token %}
+    <input name="next" type="hidden" value="{{ request.path }}">
+    <select name="language"
+            onchange="this.form.submit()"
+            aria-label="{% trans 'Language' %}"
+            class="select select-sm font-semibold text-primary-dark"
+            style="border-color: rgba(255,255,255,0.2);">
+        {% for code, label in LANGUAGES %}
+            <option value="{{ code }}" {% if code == LANGUAGE_CODE %}selected{% endif %}>{{ code|upper }}</option>
+        {% endfor %}
+    </select>
+</form>

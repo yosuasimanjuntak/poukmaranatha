@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Server error" %} · poukmaranatha{% endblock %}
+
+{% block content %}
+<div class="mx-auto max-w-md text-center">
+    <p class="text-2xs font-semibold uppercase tracking-wider text-primary">500</p>
+    <h1 class="mt-2 text-3xl font-semibold tracking-tight text-primary-dark">{% trans "Something went wrong" %}</h1>
+    <p class="prose-narrow mx-auto mt-2 text-sm text-ink-muted">{% trans "An error occurred on our side. Please try again in a moment." %}</p>
+</div>
+{% endblock %}

@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "My Schedule" %} · poukmaranatha{% endblock %}
+{% block top_title %}{% trans "My Schedule" %}{% endblock %}
+
+{% block content %}
+<section class="space-y-4">
+    <div class="flex items-end justify-between gap-3">
+        <div>
+            <h1 class="text-xl font-semibold tracking-tight text-primary-dark">{% trans "My Assignments" %}</h1>
+            <p class="text-sm text-ink-muted">{% trans "Where you are scheduled to serve." %}</p>
+        </div>
+        <a href="?past={% if show_past %}{% else %}1{% endif %}" class="btn btn-ghost btn-sm tap44">
+            {% if show_past %}{% trans "Hide Past" %}{% else %}{% trans "Show Past" %}{% endif %}
+        </a>
+    </div>
+
+    {% for day, items in assignments_by_date %}
+        <div class="space-y-2">
+            <h2 class="surface-scrim sticky top-12 z-10 -mx-4 px-4 py-2 text-2xs font-semibold uppercase tracking-wider text-primary-dark backdrop-blur">
+                {{ day|date:"l, j F Y" }}
+            </h2>
+            <ul class="stagger-children stack-tight" data-stagger>
+                {% for a in items %}
+                    <li style="--i:{% if forloop.counter0 < 8 %}{{ forloop.counter0 }}{% else %}0{% endif %}">
+                        <a href="{% url 'ministry:schedule_detail' a.schedule.pk %}" class="card card-interactive block">
+                            <div class="flex items-start justify-between gap-3">
+                                <div>
+                                    <p class="text-2xs font-semibold uppercase tracking-wider text-primary">{{ a.schedule.pelayanan.name }}</p>
+                                    <p class="mt-0.5 text-base font-semibold text-ink"><span data-num>{{ a.schedule.start_at|date:"H:i" }}</span></p>
+                                    {% if a.schedule.location %}
+                                        <p class="mt-1 text-xs text-ink-muted">{{ a.schedule.location }}</p>
+                                    {% endif %}
+                                </div>
+                                <span class="badge badge-primary">
+                                    {{ a.user_role.name }}
+                                </span>
+                            </div>
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% empty %}
+        <div class="empty-state">
+            <p class="empty-state-title">{% trans "You're not scheduled yet." %}</p>
+            <p>{% trans "Roles fill in here once an admin assigns you to a service." %}</p>
+        </div>
+    {% endfor %}
+</section>
+{% endblock %}

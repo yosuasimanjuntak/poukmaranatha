@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Pelayanan" %} · poukmaranatha{% endblock %}
+{% block top_title %}{% trans "Pelayanan" %}{% endblock %}
+
+{% block content %}
+<section class="space-y-3">
+    <div class="flex items-end justify-between gap-3">
+        <p class="prose-narrow text-sm text-ink-muted">{% trans "The kinds of services you run, each with its own role lineup." %}</p>
+        <a href="{% url 'ministry:pelayanan_create' %}" class="btn btn-primary btn-sm shrink-0">
+            + {% trans "Add Pelayanan" %}
+        </a>
+    </div>
+    <ul class="stagger-children stack-tight">
+        {% for p in pelayanan_list %}
+            <li class="card card-tight card-interactive" style="--i:{% if forloop.counter0 < 8 %}{{ forloop.counter0 }}{% else %}0{% endif %}">
+                <div class="flex items-center justify-between">
+                    <a href="{% url 'ministry:pelayanan_slots' p.pk %}" class="press flex-1">
+                        <p class="font-medium text-ink">{{ p.name }}{% if p.name_en %} <span class="text-xs text-ink-muted">/ {{ p.name_en }}</span>{% endif %}</p>
+                        <p class="text-xs text-ink-muted">{{ p.role_slots.count }} {% trans "role slot" %}{{ p.role_slots.count|pluralize }} · {% if p.is_active %}{% trans "active" %}{% else %}{% trans "inactive" %}{% endif %}</p>
+                    </a>
+                    <a href="{% url 'ministry:pelayanan_edit' p.pk %}" class="btn btn-ghost btn-sm tap44">{% trans "Edit" %}</a>
+                </div>
+            </li>
+        {% empty %}
+            <li class="empty-state">
+                <p class="empty-state-title">{% trans "No pelayanan yet." %}</p>
+                <p>{% trans "Pelayanan are the kinds of services you run (Sunday general, youth, children). Each one has its own role lineup." %}</p>
+                <div class="empty-state-actions">
+                    <a href="{% url 'ministry:pelayanan_create' %}" class="btn btn-primary btn-sm">+ {% trans "Add Pelayanan" %}</a>
+                </div>
+            </li>
+        {% endfor %}
+    </ul>
+</section>
+{% endblock %}

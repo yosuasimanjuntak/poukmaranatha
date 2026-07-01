@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Not found" %} · poukmaranatha{% endblock %}
+
+{% block content %}
+<div class="mx-auto max-w-md text-center">
+    <p class="text-2xs font-semibold uppercase tracking-wider text-primary">404</p>
+    <h1 class="mt-2 text-3xl font-semibold tracking-tight text-primary-dark">{% trans "Page not found" %}</h1>
+    <p class="prose-narrow mx-auto mt-2 text-sm text-ink-muted">{% trans "The page you're looking for doesn't exist, or it has moved." %}</p>
+    <a href="{% url 'core:home' %}" class="btn btn-primary mt-6 inline-flex">{% trans "Back Home" %}</a>
+</div>
+{% endblock %}

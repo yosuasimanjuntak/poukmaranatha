@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}Kolekte · {{ schedule.pelayanan.name }} {{ schedule.start_at|date:"j M Y" }} · poukmaranatha{% endblock %}
+{% block top_title %}Kolekte{% endblock %}
+
+{% block content %}
+<section class="space-y-5">
+    <div class="card card-roomy">
+        <p class="text-2xs font-semibold uppercase tracking-wider text-primary">{{ schedule.pelayanan.name }}</p>
+        <h1 class="mt-1 text-xl font-semibold tracking-tight text-primary-dark">
+            {{ schedule.start_at|date:"l, j F Y" }}
+        </h1>
+        <p class="mt-1 text-sm text-ink-muted">{{ schedule.start_at|date:"H:i" }}</p>
+        <div class="mt-4">
+            <a href="{% url 'ministry:schedule_detail' schedule.pk %}" class="btn btn-ghost btn-sm">
+                &larr; {% trans "Back to Schedule" %}
+            </a>
+        </div>
+    </div>
+
+    {% include "ministry/_kolekte_section.html" %}
+</section>
+{% endblock %}

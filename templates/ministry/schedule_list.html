@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Schedule" %} · poukmaranatha{% endblock %}
+{% block top_title %}{% trans "Schedule" %}{% endblock %}
+
+{% block content %}
+<section class="space-y-5" x-data="{ view: '{{ view }}' }">
+    {# Filters sit flush in the page · no card wrapper. #}
+    {% include "ministry/_filter_bar.html" %}
+
+    <div class="flex items-center justify-between gap-2">
+        <div class="segmented" role="tablist" aria-label="{% trans 'Schedule view' %}">
+            <span class="segmented-pill" aria-hidden="true"
+                  :style="`transform: translateX(${view === 'matrix' ? '100%' : '0'});`"></span>
+            <a hx-get="{% url 'ministry:schedule_list' %}{% querystring view='list' %}"
+               hx-target="#schedule-results" hx-push-url="true"
+               @click="view = 'list'"
+               role="tab"
+               :class="{ 'is-active': view === 'list' }"
+               class="segmented-option {% if view == 'list' %}is-active{% endif %}"
+               :aria-selected="view === 'list' ? 'true' : 'false'">{% trans "List" %}</a>
+            <a hx-get="{% url 'ministry:schedule_list' %}{% querystring view='matrix' %}"
+               hx-target="#schedule-results" hx-push-url="true"
+               @click="view = 'matrix'"
+               role="tab"
+               :class="{ 'is-active': view === 'matrix' }"
+               class="segmented-option {% if view == 'matrix' %}is-active{% endif %}"
+               :aria-selected="view === 'matrix' ? 'true' : 'false'">{% trans "Matrix" %}</a>
+        </div>
+        {% if is_admin_or_above %}
+            <a href="{% url 'ministry:schedule_create' %}" class="btn btn-primary btn-sm">
+                + {% trans "New Schedule" %}
+            </a>
+        {% endif %}
+    </div>
+
+    <div id="schedule-results" class="swap-fade space-y-4">
+        {% if view == 'matrix' %}
+            {% include "ministry/_schedule_matrix.html" %}
+        {% else %}
+            {% include "ministry/_schedule_results.html" %}
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

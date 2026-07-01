@@ -1,0 +1,19 @@
+{% load i18n %}
+<div class="empty-state">
+    {% if selected_pelayanan or selected_user_role or show_past or date_from or date_to %}
+        <p class="empty-state-title">{% trans "No services match these filters." %}</p>
+        <p>{% trans "Try clearing a filter or showing past services." %}</p>
+        <div class="empty-state-actions">
+            <a href="{% url 'ministry:schedule_list' %}" class="btn btn-secondary btn-sm">{% trans "Clear Filters" %}</a>
+        </div>
+    {% else %}
+        <p class="empty-state-title">{% trans "No upcoming services." %}</p>
+        <p>{% trans "Schedule the next one, or show past services to see history." %}</p>
+        <div class="empty-state-actions">
+            {% if is_admin_or_above %}
+                <a href="{% url 'ministry:schedule_create' %}" class="btn btn-primary btn-sm">+ {% trans "Schedule a Service" %}</a>
+            {% endif %}
+            <a href="?past=1" class="btn btn-secondary btn-sm">{% trans "Show Past" %}</a>
+        </div>
+    {% endif %}
+</div>

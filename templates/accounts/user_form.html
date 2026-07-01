@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% if mode == 'edit' %}{{ user_obj.display_name }}{% else %}{% trans "New user" %}{% endif %} · poukmaranatha{% endblock %}
+{% block top_title %}{% if mode == 'edit' %}{% trans "Edit User" %}{% else %}{% trans "New User" %}{% endif %}{% endblock %}
+
+{% block content %}
+<section class="space-y-4">
+    <form method="post" enctype="multipart/form-data" class="card card-roomy stack-loose">
+        {% csrf_token %}
+
+        {# -- Scalar fields (skip the two checkbox groups; rendered below) -- #}
+        {% for field in form %}
+            {% if field.html_name == 'pelayanan_categories' or field.html_name == 'user_roles' %}
+                {# rendered in dedicated sections below #}
+            {% else %}
+                <label class="block">
+                    <span class="text-sm font-medium text-ink">{{ field.label }}{% if field.field.required %} <span aria-hidden="true" class="text-accent">*</span>{% endif %}</span>
+                    <div class="mt-1">{{ field }}</div>
+                    {% if field.help_text %}
+                        <p class="mt-1 text-xs text-ink-muted">{{ field.help_text|safe }}</p>
+                    {% endif %}
+                    {% if field.errors %}
+                        <p class="mt-1 text-xs text-danger">{{ field.errors|join:", " }}</p>
+                    {% endif %}
+                </label>
+            {% endif %}
+        {% endfor %}
+
+        {# -- Service categories -- #}
+        {% with field=form.pelayanan_categories %}
+        <div>
+            <p class="text-sm font-medium text-ink mb-2">{% trans "Service Categories" %}</p>
+            {% if field.errors %}
+                <p class="mb-1 text-xs text-danger">{{ field.errors|join:", " }}</p>
+            {% endif %}
+            <div class="flex flex-wrap gap-x-4 gap-y-1">
+                {% for choice in field %}
+                <label class="inline-flex items-center gap-1.5 text-sm text-ink cursor-pointer">
+                    {{ choice.tag }}
+                    <span>{{ choice.choice_label }}</span>
+                </label>
+                {% endfor %}
+            </div>
+            <p class="mt-1 text-xs text-ink-muted">{% trans "Which worship services this person can be assigned to." %}</p>
+        </div>
+        {% endwith %}
+
+        {# -- Ministry roles -- #}
+        {% with field=form.user_roles %}
+        <div>
+            <p class="text-sm font-medium text-ink mb-2">{% trans "Ministry Roles" %}</p>
+            {% if field.errors %}
+                <p class="mb-1 text-xs text-danger">{{ field.errors|join:", " }}</p>
+            {% endif %}
+            <div class="flex flex-wrap gap-x-4 gap-y-1">
+                {% for choice in field %}
+                <label class="inline-flex items-center gap-1.5 text-sm text-ink cursor-pointer">
+                    {{ choice.tag }}
+                    <span>{{ choice.choice_label }}</span>
+                </label>
+                {% endfor %}
+            </div>
+        </div>
+        {% endwith %}
+
+        {% if form.non_field_errors %}
+            <div class="rounded-md border border-danger/30 bg-danger-50 px-3 py-2 text-xs text-danger">
+                {{ form.non_field_errors|join:", " }}
+            </div>
+        {% endif %}
+
+        <div class="flex gap-2 pt-2">
+            <button type="submit" class="btn btn-primary">
+                {% include "components/spinner.html" %}
+                <span>{% trans "Save" %}</span>
+            </button>
+            <a href="{% url 'accounts:user_list' %}" class="btn btn-secondary">
+                {% trans "Cancel" %}
+            </a>
+        </div>
+    </form>
+</section>
+{% endblock %}

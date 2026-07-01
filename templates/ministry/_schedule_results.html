@@ -1,0 +1,35 @@
+{% load i18n %}
+{% for day, schedules in schedules_by_date %}
+    <div class="space-y-2">
+        <h2 class="surface-scrim sticky top-12 z-10 -mx-4 px-4 py-2 text-2xs font-semibold uppercase tracking-wider text-primary-dark backdrop-blur">
+            {{ day|date:"l, j F Y" }}
+        </h2>
+        <ul class="stagger-children stack-tight" data-stagger>
+            {% for s in schedules %}
+                {% with filled=s.assignments.all %}
+                <li style="--i:{% if forloop.counter0 < 8 %}{{ forloop.counter0 }}{% else %}0{% endif %}">
+                    <a href="{% url 'ministry:schedule_detail' s.pk %}" class="card card-interactive block">
+                        <div class="flex items-start justify-between gap-3">
+                            <div>
+                                <p class="text-2xs font-semibold uppercase tracking-wider text-primary">{{ s.pelayanan.name }}</p>
+                                <p class="mt-0.5 text-base font-semibold text-ink">
+                                    <span data-num>{{ s.start_at|date:"H:i" }}</span>
+                                    {% if s.end_at %}<span class="font-normal text-ink-muted"> – <span data-num>{{ s.end_at|date:"H:i" }}</span></span>{% endif %}
+                                </p>
+                                {% if s.location %}
+                                    <p class="mt-1 text-xs text-ink-muted">{{ s.location }}</p>
+                                {% endif %}
+                            </div>
+                            <span class="badge">
+                                {{ filled|length }} {% trans "slot" %}{{ filled|length|pluralize }}
+                            </span>
+                        </div>
+                    </a>
+                </li>
+                {% endwith %}
+            {% endfor %}
+        </ul>
+    </div>
+{% empty %}
+    {% include "ministry/_empty_state.html" %}
+{% endfor %}

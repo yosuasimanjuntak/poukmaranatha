@@ -1,0 +1,1057 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: poukmaranatha 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-05-10 23:37+0700\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: Indonesian\n"
+"Language: id\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: .\apps\accounts\admin.py:25 .\templates\accounts\profile_edit.html:4
+#: .\templates\accounts\profile_edit.html:5
+#: .\templates\components\bottom_tabs.html:32
+msgid "Profile"
+msgstr "Profil"
+
+#: .\apps\accounts\admin.py:29
+msgid "Permissions"
+msgstr "Izin"
+
+#: .\apps\accounts\admin.py:42
+msgid "Important dates"
+msgstr "Tanggal penting"
+
+#: .\apps\accounts\forms.py:23 .\apps\accounts\models.py:16
+msgid "account role"
+msgstr "peran akun"
+
+#: .\apps\accounts\models.py:7
+msgid "Superuser"
+msgstr "Super-admin"
+
+#: .\apps\accounts\models.py:8
+msgid "Admin"
+msgstr "Admin"
+
+#: .\apps\accounts\models.py:9
+msgid "Viewer"
+msgstr "Pengamat"
+
+#: .\apps\accounts\models.py:13
+msgid "full name"
+msgstr "nama lengkap"
+
+#: .\apps\accounts\models.py:14
+msgid "photo"
+msgstr "foto"
+
+#: .\apps\accounts\models.py:22
+msgid "preferred language"
+msgstr "bahasa pilihan"
+
+#: .\apps\accounts\models.py:30 .\apps\ministry\models.py:39
+msgid "ministry roles"
+msgstr "peran pelayanan"
+
+#: .\apps\accounts\models.py:34 .\templates\ministry\userrole_list.html:20
+msgid "user"
+msgstr "pengguna"
+
+#: .\apps\accounts\models.py:35
+msgid "users"
+msgstr "pengguna"
+
+#: .\apps\accounts\views.py:55
+#, python-format
+msgid "User %(name)s created."
+msgstr "Pengguna %(name)s dibuat."
+
+#: .\apps\accounts\views.py:71
+msgid "User updated."
+msgstr "Pengguna diperbarui."
+
+#: .\apps\accounts\views.py:88
+msgid "You cannot delete your own account."
+msgstr "Anda tidak bisa menghapus akun Anda sendiri."
+
+#: .\apps\accounts\views.py:91
+msgid "Only Superuser can delete another Superuser."
+msgstr "Hanya Super-admin yang bisa menghapus Super-admin lain."
+
+#: .\apps\accounts\views.py:96
+#, python-format
+msgid "Deleted user %(name)s."
+msgstr "Pengguna %(name)s dihapus."
+
+#: .\apps\accounts\views.py:107
+msgid "Profile updated."
+msgstr "Profil diperbarui."
+
+#: .\apps\accounts\views.py:127
+msgid "Password changed."
+msgstr "Kata sandi diubah."
+
+#: .\apps\ministry\forms.py:33
+msgid "Duration (minutes)"
+msgstr "Durasi (menit)"
+
+#: .\apps\ministry\forms.py:77
+msgid "(auto from start date)"
+msgstr "(otomatis dari tanggal mulai)"
+
+#: .\apps\ministry\forms.py:78
+msgid "Monday"
+msgstr "Senin"
+
+#: .\apps\ministry\forms.py:79
+msgid "Tuesday"
+msgstr "Selasa"
+
+#: .\apps\ministry\forms.py:80
+msgid "Wednesday"
+msgstr "Rabu"
+
+#: .\apps\ministry\forms.py:81
+msgid "Thursday"
+msgstr "Kamis"
+
+#: .\apps\ministry\forms.py:82
+msgid "Friday"
+msgstr "Jumat"
+
+#: .\apps\ministry\forms.py:83
+msgid "Saturday"
+msgstr "Sabtu"
+
+#: .\apps\ministry\forms.py:84
+msgid "Sunday"
+msgstr "Minggu"
+
+#: .\apps\ministry\forms.py:99
+msgid "End date must be on or after start date."
+msgstr "Tanggal selesai harus pada atau setelah tanggal mulai."
+
+#: .\apps\ministry\models.py:9 .\apps\ministry\models.py:29
+msgid "name"
+msgstr "nama"
+
+#: .\apps\ministry\models.py:10 .\apps\ministry\models.py:30
+msgid "name (English)"
+msgstr "nama (Inggris)"
+
+#: .\apps\ministry\models.py:11 .\apps\ministry\models.py:31
+msgid "description"
+msgstr "deskripsi"
+
+#: .\apps\ministry\models.py:12 .\apps\ministry\models.py:32
+#: .\templates\ministry\pelayanan_list.html:21
+#: .\templates\ministry\userrole_list.html:20
+msgid "active"
+msgstr "aktif"
+
+#: .\apps\ministry\models.py:13 .\apps\ministry\models.py:33
+#: .\apps\ministry\models.py:51
+msgid "display order"
+msgstr "urutan tampilan"
+
+#: .\apps\ministry\models.py:19 .\apps\ministry\models.py:20
+msgid "pelayanan"
+msgstr "pelayanan"
+
+#: .\apps\ministry\models.py:38
+msgid "ministry role"
+msgstr "peran pelayanan"
+
+#: .\apps\ministry\models.py:50
+msgid "count"
+msgstr "jumlah"
+
+#: .\apps\ministry\models.py:56
+msgid "role slot template"
+msgstr "templat slot peran"
+
+#: .\apps\ministry\models.py:57
+msgid "role slot templates"
+msgstr "templat slot peran"
+
+#: .\apps\ministry\models.py:65
+msgid "Daily"
+msgstr "Harian"
+
+#: .\apps\ministry\models.py:66
+msgid "Weekly"
+msgstr "Mingguan"
+
+#: .\apps\ministry\models.py:67
+msgid "Monthly"
+msgstr "Bulanan"
+
+#: .\apps\ministry\models.py:69
+msgid "frequency"
+msgstr "frekuensi"
+
+#: .\apps\ministry\models.py:71
+msgid "start date"
+msgstr "tanggal mulai"
+
+#: .\apps\ministry\models.py:72
+msgid "end date"
+msgstr "tanggal selesai"
+
+#: .\apps\ministry\models.py:73
+msgid "start time"
+msgstr "waktu mulai"
+
+#: .\apps\ministry\models.py:74
+msgid "duration (minutes)"
+msgstr "durasi (menit)"
+
+#: .\apps\ministry\models.py:75
+msgid "weekday"
+msgstr "hari dalam minggu"
+
+#: .\apps\ministry\models.py:76
+msgid "day of month"
+msgstr "tanggal dalam bulan"
+
+#: .\apps\ministry\models.py:77 .\apps\ministry\models.py:106
+msgid "location"
+msgstr "lokasi"
+
+#: .\apps\ministry\models.py:78 .\apps\ministry\models.py:107
+#: .\apps\ministry\models.py:145
+msgid "notes"
+msgstr "catatan"
+
+#: .\apps\ministry\models.py:90
+msgid "recurrence rule"
+msgstr "aturan pengulangan"
+
+#: .\apps\ministry\models.py:91
+msgid "recurrence rules"
+msgstr "aturan pengulangan"
+
+#: .\apps\ministry\models.py:104
+msgid "start at"
+msgstr "mulai pada"
+
+#: .\apps\ministry\models.py:105
+msgid "end at"
+msgstr "berakhir pada"
+
+#: .\apps\ministry\models.py:115
+msgid "cancelled"
+msgstr "dibatalkan"
+
+#: .\apps\ministry\models.py:125
+msgid "schedule"
+msgstr "jadwal"
+
+#: .\apps\ministry\models.py:126
+msgid "schedules"
+msgstr "jadwal"
+
+#: .\apps\ministry\models.py:137
+msgid "slot index"
+msgstr "indeks slot"
+
+#: .\apps\ministry\models.py:152
+msgid "assignment"
+msgstr "penugasan"
+
+#: .\apps\ministry\models.py:153
+msgid "assignments"
+msgstr "penugasan"
+
+#: .\apps\ministry\views.py:234
+#, python-format
+msgid "Created %(count)d schedule instances."
+msgstr "Berhasil membuat %(count)d jadwal."
+
+#: .\apps\ministry\views.py:248
+msgid "Schedule created."
+msgstr "Jadwal dibuat."
+
+#: .\apps\ministry\views.py:271
+msgid "Schedule updated."
+msgstr "Jadwal diperbarui."
+
+#: .\apps\ministry\views.py:434
+msgid "Pelayanan saved."
+msgstr "Pelayanan disimpan."
+
+#: .\apps\ministry\views.py:462
+msgid "Role slot added."
+msgstr "Slot peran ditambahkan."
+
+#: .\apps\ministry\views.py:464
+msgid "Could not add role slot."
+msgstr "Tidak dapat menambah slot peran."
+
+#: .\apps\ministry\views.py:469
+msgid "Role slot removed."
+msgstr "Slot peran dihapus."
+
+#: .\apps\ministry\views.py:476
+msgid "Slot updated."
+msgstr "Slot diperbarui."
+
+#: .\apps\ministry\views.py:524
+msgid "Ministry role saved."
+msgstr "Peran pelayanan disimpan."
+
+#: .\templates\404.html:4
+msgid "Not found"
+msgstr ""
+
+#: .\templates\404.html:9
+msgid "Page not found"
+msgstr ""
+
+#: .\templates\404.html:10
+msgid "The page you're looking for doesn't exist, or it has moved."
+msgstr ""
+
+#: .\templates\404.html:11
+msgid "Back Home"
+msgstr ""
+
+#: .\templates\500.html:4
+msgid "Server error"
+msgstr ""
+
+#: .\templates\500.html:9
+msgid "Something went wrong"
+msgstr ""
+
+#: .\templates\500.html:10
+msgid "An error occurred on our side. Please try again in a moment."
+msgstr ""
+
+#: .\templates\accounts\manage_index.html:4
+#: .\templates\accounts\manage_index.html:5
+#: .\templates\components\bottom_tabs.html:26
+msgid "Manage"
+msgstr "Kelola"
+
+#: .\templates\accounts\manage_index.html:10
+msgid "Management"
+msgstr "Manajemen"
+
+#: .\templates\accounts\manage_index.html:11
+msgid "Set up the people, services, and roles that drive every Sunday."
+msgstr ""
+
+#: .\templates\accounts\manage_index.html:18
+#: .\templates\accounts\user_list.html:4 .\templates\accounts\user_list.html:5
+msgid "Users"
+msgstr "Pengguna"
+
+#: .\templates\accounts\manage_index.html:21
+msgid "in directory"
+msgstr ""
+
+#: .\templates\accounts\manage_index.html:23
+#, fuzzy
+#| msgid "Manage accounts and ministry roles"
+msgid "Manage accounts and ministry roles."
+msgstr "Kelola akun dan peran pelayanan"
+
+#: .\templates\accounts\manage_index.html:36
+msgid "Schedules"
+msgstr "Jadwal"
+
+#: .\templates\accounts\manage_index.html:37
+msgid "Create a service"
+msgstr ""
+
+#: .\templates\accounts\manage_index.html:38
+#, fuzzy
+#| msgid "Create new (one-off or recurring)"
+msgid "One-off or recurring."
+msgstr "Buat baru (sekali atau berulang)"
+
+#: .\templates\accounts\manage_index.html:41
+#: .\templates\ministry\_filter_bar.html:11
+#: .\templates\ministry\pelayanan_list.html:4
+#: .\templates\ministry\pelayanan_list.html:5
+msgid "Pelayanan"
+msgstr "Pelayanan"
+
+#: .\templates\accounts\manage_index.html:42
+msgid "Service categories"
+msgstr ""
+
+#: .\templates\accounts\manage_index.html:43
+msgid "Lineups and defaults."
+msgstr ""
+
+#: .\templates\accounts\manage_index.html:46
+#: .\templates\ministry\userrole_list.html:4
+#: .\templates\ministry\userrole_list.html:5
+#, fuzzy
+#| msgid "Ministry roles"
+msgid "Ministry Roles"
+msgstr "Peran Pelayanan"
+
+#: .\templates\accounts\manage_index.html:47
+msgid "Roles people fill"
+msgstr ""
+
+#: .\templates\accounts\manage_index.html:48
+#, fuzzy
+#| msgid "Worship Leader, Drum, Singer, etc."
+msgid "Worship Leader, Drum, Singer."
+msgstr "Worship Leader, Drum, Singer, dsb."
+
+#: .\templates\accounts\profile_edit.html:33
+#, fuzzy
+#| msgid "Edit profile"
+msgid "Edit Profile"
+msgstr "Edit profil"
+
+#: .\templates\accounts\profile_edit.html:45
+#, fuzzy
+#| msgid "Save profile"
+msgid "Save Profile"
+msgstr "Simpan profil"
+
+#: .\templates\accounts\profile_edit.html:51
+#, fuzzy
+#| msgid "Change password"
+msgid "Change Password"
+msgstr "Ubah kata sandi"
+
+#: .\templates\accounts\profile_edit.html:63
+#, fuzzy
+#| msgid "Update password"
+msgid "Update Password"
+msgstr "Perbarui kata sandi"
+
+#: .\templates\accounts\profile_edit.html:70
+#, fuzzy
+#| msgid "Log out"
+msgid "Log Out"
+msgstr "Keluar"
+
+#: .\templates\accounts\user_confirm_delete.html:4
+msgid "Delete user"
+msgstr "Hapus pengguna"
+
+#: .\templates\accounts\user_confirm_delete.html:5
+#, fuzzy
+#| msgid "Delete user"
+msgid "Delete User"
+msgstr "Hapus pengguna"
+
+#: .\templates\accounts\user_confirm_delete.html:9
+msgid "Delete this user?"
+msgstr "Hapus pengguna ini?"
+
+#: .\templates\accounts\user_confirm_delete.html:11
+#, python-format
+msgid ""
+"This will permanently delete <strong>%(name)s</strong>. This action cannot "
+"be undone."
+msgstr ""
+"Ini akan menghapus <strong>%(name)s</strong> secara permanen. Tindakan ini "
+"tidak dapat dibatalkan."
+
+#: .\templates\accounts\user_confirm_delete.html:17
+#, fuzzy
+#| msgid "Yes, delete"
+msgid "Yes, Delete"
+msgstr "Ya, hapus"
+
+#: .\templates\accounts\user_confirm_delete.html:20
+#: .\templates\accounts\user_form.html:37
+#: .\templates\ministry\pelayanan_form.html:22
+#: .\templates\ministry\schedule_form.html:59
+#: .\templates\ministry\userrole_form.html:22
+msgid "Cancel"
+msgstr "Batal"
+
+#: .\templates\accounts\user_form.html:4
+msgid "New user"
+msgstr "Pengguna baru"
+
+#: .\templates\accounts\user_form.html:5
+#, fuzzy
+#| msgid "Edit user"
+msgid "Edit User"
+msgstr "Edit pengguna"
+
+#: .\templates\accounts\user_form.html:5
+#, fuzzy
+#| msgid "New user"
+msgid "New User"
+msgstr "Pengguna baru"
+
+#: .\templates\accounts\user_form.html:34
+#: .\templates\ministry\pelayanan_form.html:20
+#: .\templates\ministry\pelayanan_slots.html:66
+#: .\templates\ministry\schedule_form.html:56
+#: .\templates\ministry\userrole_form.html:20
+msgid "Save"
+msgstr "Simpan"
+
+#: .\templates\accounts\user_list.html:11
+msgid "Search by name, username, or email"
+msgstr "Cari berdasarkan nama, username, atau email"
+
+#: .\templates\accounts\user_list.html:14
+#: .\templates\accounts\user_list.html:45
+#: .\templates\accounts\user_list.html:51
+#, fuzzy
+#| msgid "Add slot"
+msgid "Add User"
+msgstr "Tambah slot"
+
+#: .\templates\accounts\user_list.html:34
+msgid "Delete"
+msgstr "Hapus"
+
+#: .\templates\accounts\user_list.html:41
+#, fuzzy
+#| msgid "No users match."
+msgid "No users match your search."
+msgstr "Tidak ada pengguna yang cocok."
+
+#: .\templates\accounts\user_list.html:42
+msgid "Try a different name, username, or email, or clear the search."
+msgstr ""
+
+#: .\templates\accounts\user_list.html:44
+#, fuzzy
+#| msgid "Search"
+msgid "Clear Search"
+msgstr "Cari"
+
+#: .\templates\accounts\user_list.html:48
+#, fuzzy
+#| msgid "No users match."
+msgid "No users yet."
+msgstr "Tidak ada pengguna yang cocok."
+
+#: .\templates\accounts\user_list.html:49
+msgid "Add the people who serve and the admins who plan."
+msgstr ""
+
+#: .\templates\components\bottom_tabs.html:5
+msgid "Primary"
+msgstr "Utama"
+
+#: .\templates\components\bottom_tabs.html:15
+#: .\templates\ministry\schedule_list.html:4
+#: .\templates\ministry\schedule_list.html:5
+msgid "Schedule"
+msgstr "Jadwal"
+
+#: .\templates\components\bottom_tabs.html:20
+#: .\templates\ministry\my_schedule.html:4
+#: .\templates\ministry\my_schedule.html:5
+msgid "My Schedule"
+msgstr "Jadwalku"
+
+#: .\templates\components\language_switcher.html:9
+msgid "Language"
+msgstr ""
+
+#: .\templates\components\toast.html:83
+msgid "Request failed"
+msgstr ""
+
+#: .\templates\ministry\_assignment_row.html:14
+msgid "Empty"
+msgstr "Kosong"
+
+#: .\templates\ministry\_assignment_row.html:23
+msgid "Change"
+msgstr "Ubah"
+
+#: .\templates\ministry\_assignment_row.html:23
+msgid "Assign"
+msgstr "Tugaskan"
+
+#: .\templates\ministry\_assignment_row.html:31
+msgid "Clear assigned user"
+msgstr ""
+
+#: .\templates\ministry\_assignment_row.html:32
+msgid "Clear"
+msgstr "Kosongkan"
+
+#: .\templates\ministry\_assignment_row.html:40
+msgid "Remove this slot"
+msgstr ""
+
+#: .\templates\ministry\_assignment_row.html:41
+#, fuzzy
+#| msgid "Remove"
+msgid "Remove slot"
+msgstr "Hapus"
+
+#: .\templates\ministry\_empty_state.html:4
+#, fuzzy
+#| msgid "No schedules match your filters."
+msgid "No services match these filters."
+msgstr "Tidak ada jadwal yang cocok dengan filter."
+
+#: .\templates\ministry\_empty_state.html:5
+msgid "Try clearing a filter or showing past services."
+msgstr ""
+
+#: .\templates\ministry\_empty_state.html:7
+#: .\templates\ministry\_filter_bar.html:44
+#, fuzzy
+#| msgid "Clear filters"
+msgid "Clear Filters"
+msgstr "Hapus filter"
+
+#: .\templates\ministry\_empty_state.html:10
+msgid "No upcoming services."
+msgstr ""
+
+#: .\templates\ministry\_empty_state.html:11
+msgid "Schedule the next one, or show past services to see history."
+msgstr ""
+
+#: .\templates\ministry\_empty_state.html:14
+#, fuzzy
+#| msgid "Schedule created."
+msgid "Schedule a Service"
+msgstr "Jadwal dibuat."
+
+#: .\templates\ministry\_empty_state.html:16
+#: .\templates\ministry\my_schedule.html:15
+#, fuzzy
+#| msgid "Show past"
+msgid "Show Past"
+msgstr "Tampilkan yang lalu"
+
+#: .\templates\ministry\_filter_bar.html:13
+#: .\templates\ministry\_filter_bar.html:30
+msgid "All"
+msgstr "Semua"
+
+#: .\templates\ministry\_filter_bar.html:20
+msgid "From"
+msgstr "Dari"
+
+#: .\templates\ministry\_filter_bar.html:24
+msgid "To"
+msgstr "Sampai"
+
+#: .\templates\ministry\_filter_bar.html:28
+#: .\templates\ministry\pelayanan_slots.html:93
+msgid "Role"
+msgstr "Peran"
+
+#: .\templates\ministry\_filter_bar.html:37
+msgid "Show"
+msgstr "Tampilkan"
+
+#: .\templates\ministry\_filter_bar.html:39
+msgid "Upcoming only"
+msgstr "Mendatang saja"
+
+#: .\templates\ministry\_filter_bar.html:40
+msgid "All including past"
+msgstr "Semua termasuk yang lalu"
+
+#: .\templates\ministry\_schedule_matrix.html:10
+msgid "Task / Date"
+msgstr "Tugas / Tanggal"
+
+#: .\templates\ministry\_schedule_results.html:24
+msgid "slot"
+msgstr "slot"
+
+#: .\templates\ministry\_user_picker.html:9
+#, python-format
+msgid "Assign %(role)s"
+msgstr "Tugaskan %(role)s"
+
+#: .\templates\ministry\_user_picker.html:12
+msgid "Close"
+msgstr ""
+
+#: .\templates\ministry\_user_picker.html:17
+msgid "Search"
+msgstr "Cari"
+
+#: .\templates\ministry\_user_picker.html:55
+#, fuzzy
+#| msgid "No users match."
+msgid "No matches."
+msgstr "Tidak ada pengguna yang cocok."
+
+#: .\templates\ministry\_user_picker.html:56
+msgid "Try a shorter search."
+msgstr ""
+
+#: .\templates\ministry\_user_picker.html:58
+#, python-format
+msgid "No users have the %(role)s role yet."
+msgstr ""
+
+#: .\templates\ministry\_user_picker.html:59
+msgid ""
+"Add this role to someone's profile first, then come back to assign them."
+msgstr ""
+
+#: .\templates\ministry\_user_picker.html:61
+#, fuzzy
+#| msgid "Manage"
+msgid "Manage Users"
+msgstr "Kelola"
+
+#: .\templates\ministry\my_schedule.html:11
+#, fuzzy
+#| msgid "My assignments"
+msgid "My Assignments"
+msgstr "Tugas saya"
+
+#: .\templates\ministry\my_schedule.html:12
+msgid "Where you are scheduled to serve."
+msgstr "Di mana Anda dijadwalkan melayani."
+
+#: .\templates\ministry\my_schedule.html:15
+#, fuzzy
+#| msgid "Hide past"
+msgid "Hide Past"
+msgstr "Sembunyikan yang lalu"
+
+#: .\templates\ministry\my_schedule.html:47
+msgid "You're not scheduled yet."
+msgstr ""
+
+#: .\templates\ministry\my_schedule.html:48
+msgid "Roles fill in here once an admin assigns you to a service."
+msgstr ""
+
+#: .\templates\ministry\pelayanan_form.html:4
+msgid "New pelayanan"
+msgstr "Pelayanan baru"
+
+#: .\templates\ministry\pelayanan_form.html:5
+#, fuzzy
+#| msgid "Edit pelayanan"
+msgid "Edit Pelayanan"
+msgstr "Edit pelayanan"
+
+#: .\templates\ministry\pelayanan_form.html:5
+#, fuzzy
+#| msgid "New pelayanan"
+msgid "New Pelayanan"
+msgstr "Pelayanan baru"
+
+#: .\templates\ministry\pelayanan_list.html:10
+msgid "The kinds of services you run, each with its own role lineup."
+msgstr ""
+
+#: .\templates\ministry\pelayanan_list.html:12
+#: .\templates\ministry\pelayanan_list.html:31
+#, fuzzy
+#| msgid "Pelayanan"
+msgid "Add Pelayanan"
+msgstr "Pelayanan"
+
+#: .\templates\ministry\pelayanan_list.html:21
+msgid "role slot"
+msgstr "slot peran"
+
+#: .\templates\ministry\pelayanan_list.html:21
+#: .\templates\ministry\userrole_list.html:20
+msgid "inactive"
+msgstr "tidak aktif"
+
+#: .\templates\ministry\pelayanan_list.html:23
+#: .\templates\ministry\userrole_list.html:22
+msgid "Edit"
+msgstr "Edit"
+
+#: .\templates\ministry\pelayanan_list.html:28
+msgid "No pelayanan yet."
+msgstr "Belum ada pelayanan."
+
+#: .\templates\ministry\pelayanan_list.html:29
+msgid ""
+"Pelayanan are the kinds of services you run (Sunday general, youth, "
+"children). Each one has its own role lineup."
+msgstr ""
+
+#: .\templates\ministry\pelayanan_slots.html:4
+msgid "Role lineup"
+msgstr "Susunan peran"
+
+#: .\templates\ministry\pelayanan_slots.html:10
+#, fuzzy
+#| msgid "Role lineup"
+msgid "Role Lineup"
+msgstr "Susunan peran"
+
+#: .\templates\ministry\pelayanan_slots.html:11
+msgid ""
+"When a schedule is created for this pelayanan, these slots will be auto-"
+"created."
+msgstr ""
+"Saat jadwal dibuat untuk pelayanan ini, slot-slot ini akan otomatis dibuat."
+
+#: .\templates\ministry\pelayanan_slots.html:13
+msgid "Edit pelayanan details"
+msgstr "Edit detail pelayanan"
+
+#: .\templates\ministry\pelayanan_slots.html:29
+msgid "Move up"
+msgstr ""
+
+#: .\templates\ministry\pelayanan_slots.html:40
+msgid "Move down"
+msgstr ""
+
+#: .\templates\ministry\pelayanan_slots.html:55
+msgid "default"
+msgstr ""
+
+#: .\templates\ministry\pelayanan_slots.html:60
+#: .\templates\ministry\pelayanan_slots.html:98
+msgid "Default count"
+msgstr ""
+
+#: .\templates\ministry\pelayanan_slots.html:70
+msgid "Remove this role from the lineup?"
+msgstr ""
+
+#: .\templates\ministry\pelayanan_slots.html:71
+msgid "Remove"
+msgstr "Hapus"
+
+#: .\templates\ministry\pelayanan_slots.html:79
+#, fuzzy
+#| msgid "No ministry roles yet."
+msgid "No roles in this lineup yet."
+msgstr "Belum ada peran pelayanan."
+
+#: .\templates\ministry\pelayanan_slots.html:80
+msgid "Pick a role and a default count below to start."
+msgstr ""
+
+#: .\templates\ministry\pelayanan_slots.html:89
+#: .\templates\ministry\pelayanan_slots.html:104
+#, fuzzy
+#| msgid "Add slot"
+msgid "Add Slot"
+msgstr "Tambah slot"
+
+#: .\templates\ministry\pelayanan_slots.html:90
+msgid "New slots are appended to the bottom; reorder with the arrows."
+msgstr ""
+
+#: .\templates\ministry\schedule_detail.html:25
+#, fuzzy
+#| msgid "Edit pelayanan details"
+msgid "Edit Details"
+msgstr "Edit detail pelayanan"
+
+#: .\templates\ministry\schedule_detail.html:51
+#, fuzzy
+#| msgid "Add slot"
+msgid "Add Another"
+msgstr "Tambah slot"
+
+#: .\templates\ministry\schedule_detail.html:57
+msgid "This pelayanan has no role lineup yet."
+msgstr ""
+
+#: .\templates\ministry\schedule_detail.html:58
+msgid ""
+"Set up the roles people fill for this kind of service before assigning "
+"anyone."
+msgstr ""
+
+#: .\templates\ministry\schedule_detail.html:62
+msgid "Configure Lineup"
+msgstr ""
+
+#: .\templates\ministry\schedule_form.html:4
+msgid "Edit schedule"
+msgstr "Edit jadwal"
+
+#: .\templates\ministry\schedule_form.html:4
+msgid "New schedule"
+msgstr "Jadwal baru"
+
+#: .\templates\ministry\schedule_form.html:5
+#, fuzzy
+#| msgid "Edit schedule"
+msgid "Edit Schedule"
+msgstr "Edit jadwal"
+
+#: .\templates\ministry\schedule_form.html:5
+#: .\templates\ministry\schedule_list.html:29
+#, fuzzy
+#| msgid "New schedule"
+msgid "New Schedule"
+msgstr "Jadwal baru"
+
+#: .\templates\ministry\schedule_form.html:10
+#, fuzzy
+#| msgid "Schedule"
+msgid "Schedule type"
+msgstr "Jadwal"
+
+#: .\templates\ministry\schedule_form.html:15
+msgid "One-off"
+msgstr "Sekali"
+
+#: .\templates\ministry\schedule_form.html:18
+msgid "Recurring"
+msgstr "Berulang"
+
+#: .\templates\ministry\schedule_list.html:13
+msgid "Schedule view"
+msgstr "Tampilan jadwal"
+
+#: .\templates\ministry\schedule_list.html:20
+msgid "List"
+msgstr "Daftar"
+
+#: .\templates\ministry\schedule_list.html:25
+msgid "Matrix"
+msgstr "Matriks"
+
+#: .\templates\ministry\userrole_form.html:4
+msgid "New ministry role"
+msgstr "Peran pelayanan baru"
+
+#: .\templates\ministry\userrole_form.html:5
+#, fuzzy
+#| msgid "Edit ministry role"
+msgid "Edit Ministry Role"
+msgstr "Edit peran pelayanan"
+
+#: .\templates\ministry\userrole_form.html:5
+#, fuzzy
+#| msgid "New ministry role"
+msgid "New Ministry Role"
+msgstr "Peran pelayanan baru"
+
+#: .\templates\ministry\userrole_list.html:10
+msgid ""
+"The roles people fill in a service: Worship Leader, Drum, Singer, Bass, "
+"Tech, and so on."
+msgstr ""
+
+#: .\templates\ministry\userrole_list.html:12
+#: .\templates\ministry\userrole_list.html:29
+#, fuzzy
+#| msgid "Role"
+msgid "Add Role"
+msgstr "Peran"
+
+#: .\templates\ministry\userrole_list.html:26
+msgid "No ministry roles yet."
+msgstr "Belum ada peran pelayanan."
+
+#: .\templates\ministry\userrole_list.html:27
+msgid ""
+"Define the roles your team fills. Admins use these to build the lineup of "
+"each service."
+msgstr ""
+
+#: .\templates\registration\logged_out.html:4
+#, fuzzy
+#| msgid "Log out"
+msgid "Logged out"
+msgstr "Keluar"
+
+#: .\templates\registration\logged_out.html:8
+msgid "You're signed out."
+msgstr ""
+
+#: .\templates\registration\logged_out.html:9
+#, fuzzy
+#| msgid "You have no assignments."
+msgid "Log back in to see your assignments."
+msgstr "Anda belum memiliki tugas."
+
+#: .\templates\registration\logged_out.html:10
+#, fuzzy
+#| msgid "Log in"
+msgid "Log In Again"
+msgstr "Masuk"
+
+#: .\templates\registration\login.html:4 .\templates\registration\login.html:9
+msgid "Log in"
+msgstr "Masuk"
+
+#: .\templates\registration\login.html:5 .\templates\registration\login.html:31
+#, fuzzy
+#| msgid "Log in"
+msgid "Log In"
+msgstr "Masuk"
+
+#: .\templates\registration\login.html:10
+msgid "Sign in with your church account."
+msgstr ""
+
+#: .\templates\registration\login.html:14
+msgid "Invalid username or password."
+msgstr "Username atau kata sandi salah."
+
+#: .\templates\registration\login.html:21
+msgid "Username"
+msgstr "Username"
+
+#: .\templates\registration\login.html:25
+msgid "Password"
+msgstr "Kata sandi"
+
+#, fuzzy
+#~| msgid "Viewer"
+#~ msgid "View"
+#~ msgstr "Pengamat"
+
+#~ msgid "Categories and role lineups"
+#~ msgstr "Kategori dan susunan peran"
+
+#~ msgid "Django admin"
+#~ msgstr "Admin Django"
+
+#~ msgid "Raw data and recurrences"
+#~ msgstr "Data mentah dan pengulangan"
+
+#~ msgid "New"
+#~ msgstr "Baru"
+
+#~ msgid "No users found with this ministry role."
+#~ msgstr "Tidak ada pengguna dengan peran pelayanan ini."
+
+#~ msgid "No slots yet. Add one below."
+#~ msgstr "Belum ada slot. Tambahkan di bawah."
+
+#~ msgid "Count"
+#~ msgstr "Jumlah"
+
+#~ msgid "Order"
+#~ msgstr "Urutan"
+
+#~ msgid "Add"
+#~ msgstr "Tambah"
+
+#~ msgid "Edit (admin)"
+#~ msgstr "Edit (admin)"
+
+#~ msgid "No role slots configured for this Pelayanan."
+#~ msgstr "Belum ada slot peran untuk pelayanan ini."

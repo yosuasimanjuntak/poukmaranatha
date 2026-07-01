@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Users" %} · poukmaranatha{% endblock %}
+{% block top_title %}{% trans "Users" %}{% endblock %}
+
+{% block content %}
+<section class="space-y-3">
+    <div class="flex items-center justify-between gap-2">
+        <form method="get" class="flex-1">
+            <input type="search" name="q" value="{{ q }}" placeholder="{% trans 'Search by name, username, or email' %}" class="input">
+        </form>
+        <a href="{% url 'accounts:user_create' %}" class="btn btn-primary btn-sm">
+            + {% trans "Add User" %}
+        </a>
+    </div>
+
+    <ul class="stagger-children stack-tight">
+        {% for u in users %}
+            <li class="card card-tight flex items-center justify-between gap-3" style="--i:{% if forloop.counter0 < 8 %}{{ forloop.counter0 }}{% else %}0{% endif %}">
+                <a href="{% url 'accounts:user_edit' u.pk %}" class="press flex flex-1 items-center gap-3">
+                    {% if u.photo %}
+                        <img src="{{ u.photo.url }}" alt="" class="h-10 w-10 rounded-full object-cover">
+                    {% else %}
+                        <span class="flex h-10 w-10 items-center justify-center rounded-full bg-accent text-sm font-bold uppercase text-white">{{ u.display_name|slice:":1" }}</span>
+                    {% endif %}
+                    <div>
+                        <p class="font-medium text-ink">{{ u.display_name }}</p>
+                        <p class="text-xs text-ink-muted">@{{ u.username }} · {{ u.get_account_role_display }}</p>
+                    </div>
+                </a>
+                {% if u != user %}
+                    <a href="{% url 'accounts:user_delete' u.pk %}" class="btn btn-sm btn-danger-soft tap44">
+                        {% trans "Delete" %}
+                    </a>
+                {% endif %}
+            </li>
+        {% empty %}
+            <li class="empty-state">
+                {% if q %}
+                    <p class="empty-state-title">{% trans "No users match your search." %}</p>
+                    <p>{% trans "Try a different name, username, or email, or clear the search." %}</p>
+                    <div class="empty-state-actions">
+                        <a href="{% url 'accounts:user_list' %}" class="btn btn-secondary btn-sm">{% trans "Clear Search" %}</a>
+                        <a href="{% url 'accounts:user_create' %}" class="btn btn-primary btn-sm">+ {% trans "Add User" %}</a>
+                    </div>
+                {% else %}
+                    <p class="empty-state-title">{% trans "No users yet." %}</p>
+                    <p>{% trans "Add the people who serve and the admins who plan." %}</p>
+                    <div class="empty-state-actions">
+                        <a href="{% url 'accounts:user_create' %}" class="btn btn-primary btn-sm">+ {% trans "Add User" %}</a>
+                    </div>
+                {% endif %}
+            </li>
+        {% endfor %}
+    </ul>
+</section>
+{% endblock %}

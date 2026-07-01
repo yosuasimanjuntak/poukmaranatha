@@ -1,0 +1,108 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{{ pelayanan.name }} · {% trans "Role lineup" %}{% endblock %}
+{% block top_title %}{{ pelayanan.name }}{% endblock %}
+
+{% block content %}
+<section class="space-y-5">
+    <div>
+        <h1 class="text-lg font-semibold text-primary-dark">{% trans "Role Lineup" %}</h1>
+        <p class="prose-narrow mt-1 text-sm text-ink-muted">{% trans "When a schedule is created for this pelayanan, these slots will be auto-created." %}</p>
+        <a href="{% url 'ministry:pelayanan_edit' pelayanan.pk %}" class="btn btn-ghost btn-sm mt-2 -ml-2">
+            {% trans "Edit pelayanan details" %}
+        </a>
+    </div>
+
+    {# Per-slot rows · bordered list items, not cards. Reduces card pressure. #}
+    <ul class="stagger-children stack-tight">
+        {% for s in slots %}
+            <li class="slot-row overflow-hidden" style="--i:{% if forloop.counter0 < 8 %}{{ forloop.counter0 }}{% else %}0{% endif %}">
+                <div class="flex items-stretch">
+                    <div class="flex flex-col justify-center gap-1 border-r border-divider px-2 py-2">
+                        <form method="post" class="contents">
+                            {% csrf_token %}
+                            <input type="hidden" name="action" value="move_up">
+                            <input type="hidden" name="slot_id" value="{{ s.pk }}">
+                            <button type="submit"
+                                    class="btn btn-icon btn-sm btn-ghost tap44"
+                                    aria-label="{% trans 'Move up' %}"
+                                    {% if forloop.first %}disabled{% endif %}>
+                                <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg>
+                            </button>
+                        </form>
+                        <form method="post" class="contents">
+                            {% csrf_token %}
+                            <input type="hidden" name="action" value="move_down">
+                            <input type="hidden" name="slot_id" value="{{ s.pk }}">
+                            <button type="submit"
+                                    class="btn btn-icon btn-sm btn-ghost tap44"
+                                    aria-label="{% trans 'Move down' %}"
+                                    {% if forloop.last %}disabled{% endif %}>
+                                <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                            </button>
+                        </form>
+                    </div>
+
+                    <form method="post" class="flex-1 space-y-3 px-4 py-3">
+                        {% csrf_token %}
+                        <input type="hidden" name="slot_id" value="{{ s.pk }}">
+                        <input type="hidden" name="user_role" value="{{ s.user_role.pk }}">
+
+                        <div class="flex items-center justify-between gap-3">
+                            <h3 class="text-sm font-semibold text-ink">{{ s.user_role.name }}</h3>
+                            <span class="badge">
+                                {{ s.count }}× {% trans "default" %}
+                            </span>
+                        </div>
+
+                        <label class="block">
+                            <span class="text-2xs font-medium uppercase tracking-wider text-ink-muted">{% trans "Default count" %}</span>
+                            <input name="count" type="number" min="1" value="{{ s.count }}" class="mt-1">
+                        </label>
+
+                        <div class="flex items-center gap-2">
+                            <button type="submit" name="action" value="update" class="btn btn-primary btn-sm">
+                                {% trans "Save" %}
+                            </button>
+                            <button type="submit" name="action" value="delete"
+                                    class="btn btn-sm btn-danger-soft ml-auto"
+                                    onclick="return confirm('{% trans "Remove this role from the lineup?" %}');">
+                                {% trans "Remove" %}
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </li>
+        {% empty %}
+            <li class="empty-state">
+                <p class="empty-state-title">{% trans "No roles in this lineup yet." %}</p>
+                <p>{% trans "Pick a role and a default count below to start." %}</p>
+            </li>
+        {% endfor %}
+    </ul>
+
+    {# The write surface keeps card treatment · different density on purpose. #}
+    <form method="post" class="card stack-loose">
+        {% csrf_token %}
+        <input type="hidden" name="action" value="add">
+        <h2 class="text-2xs font-semibold uppercase tracking-wider text-primary-dark">{% trans "Add Slot" %}</h2>
+        <p class="text-xs text-ink-muted">{% trans "New slots are appended to the bottom; reorder with the arrows." %}</p>
+
+        <label class="block">
+            <span class="text-2xs font-medium uppercase tracking-wider text-ink-muted">{% trans "Role" %}</span>
+            <div class="mt-1">{{ add_form.user_role }}</div>
+        </label>
+
+        <label class="block">
+            <span class="text-2xs font-medium uppercase tracking-wider text-ink-muted">{% trans "Default count" %}</span>
+            <div class="mt-1">{{ add_form.count }}</div>
+        </label>
+
+        <button type="submit" class="btn btn-primary btn-block">
+            {% include "components/spinner.html" %}
+            <span>+ {% trans "Add Slot" %}</span>
+        </button>
+    </form>
+</section>
+{% endblock %}

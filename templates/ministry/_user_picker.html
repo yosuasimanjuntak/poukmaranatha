@@ -1,0 +1,86 @@
+{% load i18n %}
+{# Pure CSS + inline JS — no Alpine dependency, so the modal always renders. #}
+<div class="modal-backdrop modal-backdrop-enter"
+     data-picker-modal
+     onclick="if(event.target===this){this.parentElement.innerHTML='';}">
+    <div class="modal-panel" onclick="event.stopPropagation()">
+        <div class="flex items-center justify-between gap-2">
+            <h3 class="text-sm font-semibold text-primary-dark">
+                {% blocktrans with role=assignment.user_role.name %}Assign {{ role }}{% endblocktrans %}
+            </h3>
+            <button type="button" class="btn btn-icon btn-sm btn-ghost tap44"
+                    aria-label="{% trans 'Close' %}"
+                    onclick="this.closest('[data-picker-modal]').parentElement.innerHTML='';">✕</button>
+        </div>
+
+        <div class="relative mt-3">
+            <input type="search" name="q" placeholder="{% trans 'Search' %}…" value="{{ q }}"
+                   hx-get="{% url 'ministry:assignment_picker' assignment.pk %}"
+                   hx-target="closest [data-picker-modal]"
+                   hx-swap="outerHTML"
+                   hx-trigger="keyup changed delay:200ms"
+                   hx-indicator="#picker-spinner-{{ assignment.pk }}"
+                   class="input pr-9"
+                   autofocus>
+            <span id="picker-spinner-{{ assignment.pk }}"
+                  class="htmx-indicator pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 text-primary">
+                <span class="spinner spinner-sm"></span>
+            </span>
+        </div>
+
+        <ul class="mt-3 space-y-1">
+            {% for u in candidates %}
+                <li>
+                    <button type="button"
+                            class="press flex w-full items-center gap-2 rounded-md px-3 py-2.5 text-left text-sm hover:bg-primary-50"
+                            hx-post="{% url 'ministry:assignment_assign' assignment.pk %}"
+                            hx-vals='{"user_id": "{{ u.pk }}"}'
+                            hx-target="#assignment-{{ assignment.pk }}"
+                            hx-swap="outerHTML swap:200ms"
+                            hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
+                            onclick="setTimeout(()=>{const m=document.getElementById('modal-root');if(m)m.innerHTML='';},150);">
+                        {% if u.photo %}
+                            <img src="{{ u.photo.url }}" alt="" class="h-6 w-6 rounded-full object-cover">
+                        {% else %}
+                            <span class="flex h-6 w-6 items-center justify-center rounded-full bg-accent text-2xs font-bold uppercase text-white">{{ u.display_name|slice:":1" }}</span>
+                        {% endif %}
+                        <span class="text-ink">{{ u.display_name }}</span>
+                        <span class="ml-auto text-2xs text-ink-muted">@{{ u.username }}</span>
+                    </button>
+                </li>
+            {% empty %}
+                <li>
+                    <div class="empty-state">
+                        {% if q %}
+                            <p class="empty-state-title">{% trans "No matches." %}</p>
+                            <p>{% trans "Try a shorter search." %}</p>
+                        {% else %}
+                            <p class="empty-state-title">{% blocktrans with role=assignment.user_role.name %}No users have the {{ role }} role yet.{% endblocktrans %}</p>
+                            <p>{% trans "Add this role to someone's profile first, then come back to assign them." %}</p>
+                            <div class="empty-state-actions">
+                                <a href="{% url 'accounts:user_list' %}" class="btn btn-primary btn-sm">{% trans "Manage Users" %}</a>
+                            </div>
+                        {% endif %}
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+<script>
+(function(){
+    const m = document.currentScript.previousElementSibling;
+    if (!m) return;
+    // Escape closes
+    const onEsc = (e) => {
+        if (e.key === 'Escape' && document.body.contains(m)) {
+            m.parentElement.innerHTML = '';
+            document.removeEventListener('keydown', onEsc);
+        }
+    };
+    document.addEventListener('keydown', onEsc);
+    // Focus the search input on open
+    const search = m.querySelector('input[type=search]');
+    if (search) setTimeout(() => search.focus(), 50);
+})();
+</script>

@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% if instance %}{{ instance.name }}{% else %}{% trans "New pelayanan" %}{% endif %} · poukmaranatha{% endblock %}
+{% block top_title %}{% if instance %}{% trans "Edit Pelayanan" %}{% else %}{% trans "New Pelayanan" %}{% endif %}{% endblock %}
+
+{% block content %}
+<form method="post" class="card card-roomy stack-loose">
+    {% csrf_token %}
+    {% for field in form %}
+        <label class="block">
+            <span class="text-sm font-medium text-ink">{{ field.label }}{% if field.field.required %} <span aria-hidden="true" class="text-accent">*</span>{% endif %}</span>
+            <div class="mt-1">{{ field }}</div>
+            {% if field.errors %}<p class="mt-1 text-xs text-danger">{{ field.errors|join:", " }}</p>{% endif %}
+        </label>
+    {% endfor %}
+    <div class="flex gap-2">
+        <button type="submit" class="btn btn-primary">
+            {% include "components/spinner.html" %}
+            <span>{% trans "Save" %}</span>
+        </button>
+        <a href="{% url 'ministry:pelayanan_list' %}" class="btn btn-secondary">{% trans "Cancel" %}</a>
+    </div>
+</form>
+{% endblock %}

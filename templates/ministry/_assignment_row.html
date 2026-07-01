@@ -1,0 +1,47 @@
+{% load i18n %}
+<li id="assignment-{{ a.pk }}"
+    class="swap-fade group relative flex items-center justify-between gap-2 rounded-md {% if a.user %}bg-primary-50{% else %}border border-dashed border-accent/60 bg-white{% endif %} px-3 py-2 text-sm">
+    {% if a.user %}
+        <span class="flex items-center gap-2 text-ink">
+            {% if a.user.photo %}
+                <img src="{{ a.user.photo.url }}" alt="" class="h-6 w-6 rounded-full object-cover">
+            {% else %}
+                <span class="flex h-6 w-6 items-center justify-center rounded-full bg-accent text-[10px] font-bold uppercase text-white">{{ a.user.display_name|slice:":1" }}</span>
+            {% endif %}
+            {{ a.user.display_name }}
+        </span>
+    {% else %}
+        <span class="italic text-ink-muted">{% trans "Empty" %}</span>
+    {% endif %}
+
+    {% if is_admin_or_above %}
+    <span class="flex gap-1">
+        <button type="button" class="btn btn-sm btn-secondary"
+                hx-get="{% url 'ministry:assignment_picker' a.pk %}"
+                hx-target="#modal-root"
+                hx-swap="innerHTML">
+            {% if a.user %}{% trans "Change" %}{% else %}{% trans "Assign" %}{% endif %}
+        </button>
+        {% if a.user %}
+        <button type="button" class="btn btn-sm btn-danger-soft"
+                hx-post="{% url 'ministry:assignment_clear' a.pk %}"
+                hx-target="#assignment-{{ a.pk }}"
+                hx-swap="outerHTML"
+                hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
+                title="{% trans 'Clear assigned user' %}">
+            {% trans "Clear" %}
+        </button>
+        {% else %}
+        <button type="button" class="btn btn-icon btn-sm btn-ghost"
+                hx-post="{% url 'ministry:assignment_delete' a.pk %}"
+                hx-target="#assignment-{{ a.pk }}"
+                hx-swap="outerHTML swap:200ms"
+                hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
+                title="{% trans 'Remove this slot' %}"
+                aria-label="{% trans 'Remove slot' %}">
+            ×
+        </button>
+        {% endif %}
+    </span>
+    {% endif %}
+</li>

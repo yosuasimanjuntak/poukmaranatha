@@ -1,0 +1,90 @@
+{% load i18n %}
+<section id="kolekte-section" class="space-y-3">
+    <div class="section-head">
+        <h3>{% trans "Kolekte" %}</h3>
+        {% if grand_total %}
+            <span class="badge badge-success">Rp {{ grand_total|floatformat:"0" }}</span>
+        {% endif %}
+    </div>
+
+    {% if entries %}
+    <ul class="stack-tight">
+        {% for entry in entries %}
+        <li class="flex items-center justify-between gap-3 rounded-lg bg-surface px-4 py-3">
+            <div class="min-w-0">
+                <p class="text-sm font-medium text-ink">{{ entry.type }}</p>
+                {% if entry.notes %}
+                    <p class="text-2xs text-ink-muted">{{ entry.notes }}</p>
+                {% endif %}
+            </div>
+            <div class="flex shrink-0 items-center gap-2">
+                <span class="font-mono text-sm font-semibold text-ink" data-num>Rp {{ entry.total|floatformat:"0" }}</span>
+                {% if is_admin_or_above %}
+                <button type="button" class="btn btn-ghost btn-icon btn-sm"
+                        hx-get="{% url 'ministry:kolekte_edit' entry.pk %}"
+                        hx-target="#kolekte-section"
+                        hx-swap="outerHTML">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="size-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
+                    </svg>
+                </button>
+                <button type="button" class="btn btn-ghost btn-icon btn-sm text-danger"
+                        hx-post="{% url 'ministry:kolekte_delete' entry.pk %}"
+                        hx-target="#kolekte-section"
+                        hx-swap="outerHTML"
+                        hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
+                        hx-confirm="{% trans 'Delete this entry?' %}">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="size-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+                    </svg>
+                </button>
+                {% endif %}
+            </div>
+        </li>
+        {% endfor %}
+    </ul>
+    {% if entries|length > 1 %}
+    <div class="flex justify-end px-1">
+        <p class="text-sm text-ink-muted">
+            {% trans "Total" %}: <span class="font-semibold text-ink" data-num>Rp {{ grand_total|floatformat:"0" }}</span>
+        </p>
+    </div>
+    {% endif %}
+    {% else %}
+    <p class="py-2 text-sm text-ink-muted">{% trans "No kolekte recorded for this service yet." %}</p>
+    {% endif %}
+
+    {% if is_admin_or_above and form %}
+    <form hx-post="{% url 'ministry:kolekte_add' schedule.pk %}"
+          hx-target="#kolekte-section"
+          hx-swap="outerHTML"
+          hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
+          class="space-y-2 rounded-lg border border-dashed border-divider p-3">
+        <p class="text-xs font-medium text-ink-muted">{% trans "Add Entry" %}</p>
+        <div class="flex flex-wrap gap-2">
+            <div class="flex-1 min-w-36">
+                {{ form.type.errors }}
+                <select name="{{ form.type.html_name }}" class="select select-sm w-full">
+                    {% for val, label in form.type.field.choices %}
+                    <option value="{{ val }}">{{ label }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="flex-1 min-w-36">
+                {{ form.total.errors }}
+                <input type="number" name="{{ form.total.html_name }}" class="input input-sm w-full"
+                       placeholder="{% trans 'Amount (IDR)' %}" min="0" step="1000">
+            </div>
+        </div>
+        <div>
+            {{ form.notes.errors }}
+            <input type="text" name="{{ form.notes.html_name }}" class="input input-sm w-full"
+                   placeholder="{% trans 'Notes (optional)' %}">
+        </div>
+        <button type="submit" class="btn btn-primary btn-sm">
+            {% include "components/spinner.html" %}
+            <span>{% trans "Save" %}</span>
+        </button>
+    </form>
+    {% endif %}
+</section>

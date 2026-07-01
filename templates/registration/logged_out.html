@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Logged out" %} · poukmaranatha{% endblock %}
+
+{% block content %}
+<div class="mx-auto max-w-sm text-center">
+    <h1 class="text-2xl font-semibold tracking-tight text-primary-dark">{% trans "You're signed out." %}</h1>
+    <p class="prose-narrow mx-auto mt-2 text-sm text-ink-muted">{% trans "Log back in to see your assignments." %}</p>
+    <a href="{% url 'login' %}" class="btn btn-primary mt-6 inline-flex">{% trans "Log In Again" %}</a>
+</div>
+{% endblock %}

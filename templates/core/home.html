@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block title %}Home · poukmaranatha{% endblock %}
+
+{% block content %}
+<section class="stagger-children space-y-8">
+    <div style="--i:0">
+        <h1 class="text-4xl font-bold tracking-tight text-primary-dark">It's alive.</h1>
+        <p class="mt-3 text-ink-muted">Django + HTMX + Tailwind + Alpine, all wired up.</p>
+    </div>
+
+    <div class="card card-roomy" style="--i:1">
+        <h2 class="text-lg font-semibold text-primary-dark">Tailwind</h2>
+        <p class="mt-1 text-sm text-ink-muted">If this card has padding, a shadow, and the right palette, Tailwind compiled fine.</p>
+    </div>
+
+    <div class="card card-roomy" style="--i:2">
+        <h2 class="text-lg font-semibold text-primary-dark">HTMX</h2>
+        <p class="mt-1 text-sm text-ink-muted">Click the button to fetch a partial without a full page load.</p>
+        <div class="mt-4 flex items-center gap-3">
+            <button type="button" class="btn btn-primary btn-sm"
+                    hx-get="{% url 'core:htmx_ping' %}"
+                    hx-target="#htmx-target"
+                    hx-swap="innerHTML">
+                {% include "components/spinner.html" %}
+                <span>Ping</span>
+            </button>
+            <span id="htmx-target" class="text-sm text-ink-muted">No ping yet.</span>
+        </div>
+    </div>
+
+    <div class="card card-roomy" style="--i:3" x-data="{ count: 0 }">
+        <h2 class="text-lg font-semibold text-primary-dark">Alpine</h2>
+        <p class="mt-1 text-sm text-ink-muted">Reactive state without a build step beyond what's already running.</p>
+        <div class="mt-4 flex items-center gap-3">
+            <button type="button" class="btn btn-primary btn-sm" @click="count++">
+                Increment
+            </button>
+            <span class="text-sm text-ink-muted">Count: <span class="font-mono text-primary-dark" x-text="count"></span></span>
+        </div>
+    </div>
+</section>
+{% endblock %}

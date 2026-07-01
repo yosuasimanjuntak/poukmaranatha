@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Manage" %} · poukmaranatha{% endblock %}
+{% block top_title %}{% trans "Manage" %}{% endblock %}
+
+{% block content %}
+<section class="space-y-6">
+    <div>
+        <h1 class="text-xl font-semibold tracking-tight text-primary-dark">{% trans "Management" %}</h1>
+        <p class="mt-1 text-sm text-ink-muted prose-narrow">{% trans "Set up the people, services, and roles that drive every Sunday." %}</p>
+    </div>
+
+    {# Hero · Users. Different shape from the action grid below to break the identical-card pattern. #}
+    <a href="{% url 'accounts:user_list' %}"
+       class="card card-interactive flex items-end justify-between gap-4 overflow-hidden p-5">
+        <div>
+            <p class="text-2xs font-semibold uppercase tracking-wider text-primary">{% trans "Users" %}</p>
+            <p class="mt-2 flex items-baseline gap-2">
+                <span data-num class="text-4xl font-semibold tracking-tight text-ink">{{ counts.users }}</span>
+                <span class="text-sm text-ink-muted">{% trans "in directory" %}</span>
+            </p>
+            <p class="mt-3 text-xs text-ink-muted">{% trans "Manage accounts and ministry roles." %}</p>
+        </div>
+        <svg class="h-12 w-12 shrink-0 text-primary-50" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="9" cy="8" r="3.5"/>
+            <path d="M3 19a6 6 0 0 1 12 0"/>
+            <circle cx="17" cy="9" r="2.5"/>
+            <path d="M14 17a4 4 0 0 1 7 0"/>
+        </svg>
+    </a>
+
+    {# 3-up action shortcuts. Action-led copy, no counts · visually lighter than the hero. #}
+    <div class="stagger-children grid grid-cols-1 gap-3 sm:grid-cols-3">
+        <a href="{% url 'ministry:schedule_create' %}" class="card card-interactive card-tight" style="--i:0">
+            <p class="text-2xs font-semibold uppercase tracking-wider text-primary">{% trans "Schedules" %}</p>
+            <p class="mt-1.5 text-sm font-medium text-ink">{% trans "Create a service" %}</p>
+            <p class="mt-0.5 text-xs text-ink-muted">{% trans "One-off or recurring." %}</p>
+        </a>
+        <a href="{% url 'ministry:pelayanan_list' %}" class="card card-interactive card-tight" style="--i:1">
+            <p class="text-2xs font-semibold uppercase tracking-wider text-primary">{% trans "Pelayanan" %}</p>
+            <p class="mt-1.5 text-sm font-medium text-ink">{% trans "Service categories" %}</p>
+            <p class="mt-0.5 text-xs text-ink-muted">{% trans "Lineups and defaults." %}</p>
+        </a>
+        <a href="{% url 'ministry:userrole_list' %}" class="card card-interactive card-tight" style="--i:2">
+            <p class="text-2xs font-semibold uppercase tracking-wider text-primary">{% trans "Ministry Roles" %}</p>
+            <p class="mt-1.5 text-sm font-medium text-ink">{% trans "Roles people fill" %}</p>
+            <p class="mt-0.5 text-xs text-ink-muted">{% trans "Worship Leader, Drum, Singer." %}</p>
+        </a>
+    </div>
+</section>
+{% endblock %}

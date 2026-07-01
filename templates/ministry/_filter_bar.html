@@ -1,0 +1,47 @@
+{% load i18n %}
+<form id="filter-form"
+      hx-get="{% url 'ministry:schedule_list' %}"
+      hx-target="#schedule-results"
+      hx-push-url="true"
+      hx-trigger="change from:select, change from:input[type=date] delay:300ms, click from:button[name=clear]"
+      hx-indicator="#filter-spinner"
+      class="grid grid-cols-2 gap-3 lg:grid-cols-6">
+    <input type="hidden" name="view" :value="view">
+    <label class="block">
+        <span class="text-2xs font-medium uppercase tracking-wider text-ink-muted">{% trans "Pelayanan" %}</span>
+        <select name="pelayanan" class="select mt-1">
+            <option value="">{% trans "All" %}</option>
+            {% for p in pelayanan_options %}
+                <option value="{{ p.pk }}" {% if selected_pelayanan == p.pk|stringformat:'s' %}selected{% endif %}>{{ p.name }}</option>
+            {% endfor %}
+        </select>
+    </label>
+    <label class="block">
+        <span class="text-2xs font-medium uppercase tracking-wider text-ink-muted">{% trans "From" %}</span>
+        <input type="date" name="date_from" value="{{ date_from }}" class="select mt-1" />
+    </label>
+    <label class="block">
+        <span class="text-2xs font-medium uppercase tracking-wider text-ink-muted">{% trans "To" %}</span>
+        <input type="date" name="date_to" value="{{ date_to }}" class="select mt-1" />
+    </label>
+    <label class="block">
+        <span class="text-2xs font-medium uppercase tracking-wider text-ink-muted">{% trans "Role" %}</span>
+        <select name="user_role" class="select mt-1">
+            <option value="">{% trans "All" %}</option>
+            {% for r in user_role_options %}
+                <option value="{{ r.pk }}" {% if selected_user_role == r.pk|stringformat:'s' %}selected{% endif %}>{{ r.name }}</option>
+            {% endfor %}
+        </select>
+    </label>
+    <label class="block">
+        <span class="text-2xs font-medium uppercase tracking-wider text-ink-muted">{% trans "Show" %}</span>
+        <select name="past" class="select mt-1">
+            <option value="" {% if not show_past %}selected{% endif %}>{% trans "Upcoming only" %}</option>
+            <option value="1" {% if show_past %}selected{% endif %}>{% trans "All including past" %}</option>
+        </select>
+    </label>
+    <div class="flex items-end justify-between gap-2">
+        <a href="{% url 'ministry:schedule_list' %}" class="btn btn-ghost btn-sm tap44">{% trans "Clear Filters" %}</a>
+        <span id="filter-spinner" class="htmx-indicator inline-flex items-center text-primary"><span class="spinner spinner-sm"></span></span>
+    </div>
+</form>

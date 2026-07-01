@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{{ schedule.pelayanan.name }} {{ schedule.start_at|date:"j M" }} · poukmaranatha{% endblock %}
+{% block top_title %}{{ schedule.pelayanan.name }}{% endblock %}
+
+{% block content %}
+<section class="space-y-5">
+    {# Header card · kept; the only card on this page. #}
+    <div class="card card-roomy">
+        <p class="text-2xs font-semibold uppercase tracking-wider text-primary">{{ schedule.pelayanan.name }}</p>
+        <h1 class="mt-1 text-xl font-semibold tracking-tight text-primary-dark">
+            {{ schedule.start_at|date:"l, j F Y" }}
+        </h1>
+        <p class="mt-1 text-sm text-ink-muted">
+            <span data-num>{{ schedule.start_at|date:"H:i" }}</span>{% if schedule.end_at %} – <span data-num>{{ schedule.end_at|date:"H:i" }}</span>{% endif %}
+            {% if schedule.location %} · {{ schedule.location }}{% endif %}
+        </p>
+        {% if schedule.notes %}
+            <p class="prose-narrow mt-3 rounded-md bg-surface px-3 py-2 text-sm text-ink">{{ schedule.notes|linebreaksbr }}</p>
+        {% endif %}
+        {% if is_admin_or_above %}
+            <div class="mt-4 flex gap-2">
+                <a href="{% url 'ministry:schedule_edit' schedule.pk %}" class="btn btn-secondary btn-sm">
+                    {% trans "Edit Details" %}
+                </a>
+            </div>
+        {% endif %}
+    </div>
+
+    {# Role groups · un-carded sections separated by hairlines, not nested cards. #}
+    <div>
+        {% for role, slots in role_groups %}
+            <section class="section-head">
+                <h3>{{ role.name }}</h3>
+                <span id="role-count-{{ role.pk }}" class="badge">{{ slots|length }}</span>
+            </section>
+            <ul id="role-slots-{{ role.pk }}" class="stack-tight pb-3" data-stagger>
+                {% for a in slots %}
+                    {% include "ministry/_assignment_row.html" %}
+                {% endfor %}
+            </ul>
+            {% if is_admin_or_above %}
+            <div class="pb-4">
+                <button type="button" class="btn btn-dashed btn-sm btn-block"
+                        hx-post="{% url 'ministry:assignment_add' schedule.pk role.pk %}"
+                        hx-target="#role-slots-{{ role.pk }}"
+                        hx-swap="beforeend"
+                        hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'>
+                    {% include "components/spinner.html" %}
+                    <span>+ {% trans "Add Another" %}</span>
+                </button>
+            </div>
+            {% endif %}
+        {% empty %}
+            <div class="empty-state">
+                <p class="empty-state-title">{% trans "This pelayanan has no role lineup yet." %}</p>
+                <p>{% trans "Set up the roles people fill for this kind of service before assigning anyone." %}</p>
+                {% if is_admin_or_above %}
+                <div class="empty-state-actions">
+                    <a href="{% url 'ministry:pelayanan_slots' schedule.pelayanan.pk %}" class="btn btn-primary btn-sm">
+                        {% trans "Configure Lineup" %}
+                    </a>
+                </div>
+                {% endif %}
+            </div>
+        {% endfor %}
+    </div>
+
+    {# Kolekte section — HTMX-managed, swaps the whole section on changes #}
+    {% include "ministry/_kolekte_section.html" %}
+</section>
+{% endblock %}

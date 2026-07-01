@@ -1,0 +1,98 @@
+{% load i18n %}
+{# Toast region · Alpine store + Django messages bridge + HTMX error auto-toast #}
+
+{% if messages %}
+<script id="django-messages" type="application/json">
+[
+  {% for m in messages %}
+    {"type": "{{ m.tags|default:'info'|escapejs }}", "message": "{{ m.message|escapejs }}"}{% if not forloop.last %},{% endif %}
+  {% endfor %}
+]
+</script>
+{% endif %}
+
+<script>
+  (function () {
+    document.addEventListener('alpine:init', function () {
+      window.Alpine.store('toasts', {
+        items: [],
+        _id: 0,
+        push: function (opts) {
+          opts = opts || {};
+          var id = ++this._id;
+          var t = {
+            id: id,
+            type: opts.type || 'info',
+            message: opts.message || '',
+            duration: typeof opts.duration === 'number' ? opts.duration : 4500,
+            paused: false,
+            leaving: false
+          };
+          this.items.push(t);
+          if (t.duration > 0) this._schedule(t);
+        },
+        _schedule: function (t) {
+          var self = this;
+          var remaining = t.duration;
+          var lastTick = Date.now();
+          var tick = function () {
+            if (!self.items.find(function (x) { return x.id === t.id; })) return;
+            if (t.paused) { lastTick = Date.now(); return setTimeout(tick, 80); }
+            var now = Date.now();
+            remaining -= now - lastTick;
+            lastTick = now;
+            if (remaining <= 0) self.dismiss(t.id);
+            else setTimeout(tick, Math.min(remaining, 200));
+          };
+          setTimeout(tick, Math.min(t.duration, 200));
+        },
+        dismiss: function (id) {
+          var idx = this.items.findIndex(function (x) { return x.id === id; });
+          if (idx === -1) return;
+          this.items[idx].leaving = true;
+          var self = this;
+          setTimeout(function () {
+            self.items = self.items.filter(function (x) { return x.id !== id; });
+          }, 230);
+        }
+      });
+
+      // Hydrate Django messages
+      var node = document.getElementById('django-messages');
+      if (node) {
+        try {
+          var data = JSON.parse(node.textContent);
+          data.forEach(function (m) { window.Alpine.store('toasts').push(m); });
+        } catch (e) { /* noop */ }
+      }
+    });
+
+    window.toast = function (opts) {
+      if (!window.Alpine || !window.Alpine.store('toasts')) {
+        document.addEventListener('alpine:initialized', function () {
+          window.Alpine.store('toasts').push(opts);
+        }, { once: true });
+        return;
+      }
+      window.Alpine.store('toasts').push(opts);
+    };
+
+    // HTMX error → toast (only fires on actual response errors, not aborted)
+    document.body.addEventListener('htmx:responseError', function (e) {
+      var status = e.detail && e.detail.xhr ? e.detail.xhr.status : '';
+      window.toast({ type: 'error', message: '{% trans "Request failed" %}' + (status ? ' (' + status + ')' : '') });
+    });
+  })();
+</script>
+
+<div class="toast-region" aria-live="polite" aria-atomic="true" x-data>
+  <template x-for="t in $store.toasts.items" :key="t.id">
+    <div :class="'toast toast-' + t.type + ' ' + (t.leaving ? 'toast-exit' : 'toast-enter')"
+         role="status"
+         @mouseenter="t.paused = true"
+         @mouseleave="t.paused = false"
+         @click="$store.toasts.dismiss(t.id)">
+      <span x-text="t.message"></span>
+    </div>
+  </template>
+</div>

@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% if mode == 'edit' %}{% trans "Edit schedule" %}{% else %}{% trans "New schedule" %}{% endif %} · poukmaranatha{% endblock %}
+{% block top_title %}{% if mode == 'edit' %}{% trans "Edit Schedule" %}{% else %}{% trans "New Schedule" %}{% endif %}{% endblock %}
+
+{% block content %}
+<section class="space-y-4">
+    {% if mode != 'edit' %}
+    <div class="segmented" role="tablist" aria-label="{% trans 'Schedule type' %}">
+        <span class="segmented-pill" aria-hidden="true"
+              style="transform: translateX({% if mode == 'recurring' %}100%{% else %}0{% endif %});"></span>
+        <a href="?mode=one_off" role="tab"
+           class="segmented-option {% if mode == 'one_off' %}is-active{% endif %}"
+           aria-selected="{% if mode == 'one_off' %}true{% else %}false{% endif %}">{% trans "One-off" %}</a>
+        <a href="?mode=recurring" role="tab"
+           class="segmented-option {% if mode == 'recurring' %}is-active{% endif %}"
+           aria-selected="{% if mode == 'recurring' %}true{% else %}false{% endif %}">{% trans "Recurring" %}</a>
+    </div>
+    {% endif %}
+
+    <form method="post" class="card card-roomy stack-loose"
+          x-data="{ frequency: '{{ form.frequency.value|default_if_none:'' }}' }"
+          @submit="$el.querySelector('button[type=submit]')?.setAttribute('aria-busy', 'true')">
+        {% csrf_token %}
+        <input type="hidden" name="mode" value="{{ mode }}">
+
+        {% for field in form %}
+            {% if field.name == 'weekday' %}
+            <label class="block" x-show="frequency === 'weekly'" x-transition x-cloak>
+            {% elif field.name == 'day_of_month' %}
+            <label class="block" x-show="frequency === 'monthly'" x-transition x-cloak>
+            {% else %}
+            <label class="block">
+            {% endif %}
+                <span class="text-sm font-medium text-ink">{{ field.label }}{% if field.field.required %} <span aria-hidden="true" class="text-accent">*</span>{% endif %}</span>
+                <div class="mt-1">{{ field }}</div>
+                {% if field.help_text %}
+                    <p class="mt-1 text-xs text-ink-muted">{{ field.help_text }}</p>
+                {% endif %}
+                {% if field.errors %}
+                    <p class="mt-1 text-xs text-danger">{{ field.errors|join:", " }}</p>
+                {% endif %}
+            </label>
+        {% endfor %}
+
+        {% if form.non_field_errors %}
+            <div class="rounded-md border border-danger/30 bg-danger-50 px-3 py-2 text-xs text-danger">
+                {{ form.non_field_errors|join:", " }}
+            </div>
+        {% endif %}
+
+        <div class="flex gap-2 pt-2">
+            <button type="submit" class="btn btn-primary">
+                {% include "components/spinner.html" %}
+                <span>{% trans "Save" %}</span>
+            </button>
+            <a href="{% url 'ministry:schedule_list' %}" class="btn btn-secondary">
+                {% trans "Cancel" %}
+            </a>
+        </div>
+    </form>
+</section>
+{% endblock %}
